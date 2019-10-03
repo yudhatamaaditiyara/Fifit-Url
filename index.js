@@ -18,6 +18,15 @@
 const url = require('url');
 
 /**
+ * parser [reference](https://tools.ietf.org/html/rfc3986#page-51)
+ *
+ * spaces `\x09`, `\x0A`, `\x0C`, `\x0D`, `\x20`, `\xA0`, `\uFEFF`
+ * escape `\x09`, `\x0A`, `\x0D`, `\x20`, `\x22`, `\x27`, `\x3C`, `\x3E`, `\x5C`, `\x5E`, `\x60`, `\x7B`, `\x7C`, `\x7D`
+ */
+const parseRegexp = /^((\/[^?#]*)?(\?([^#]*))?)(#.*)?$/;
+const charsRegexp = /[\x09\x0A\x0C\x0D\x20\x22\x27\x3C\x3E\x5C\x5E\x60\x7B\x7C\x7D\xA0\uFEFF]/;
+
+/**
  */
 class Url extends url.Url
 {
@@ -34,41 +43,31 @@ class Url extends url.Url
 	 * @returns {Url}
 	 */
 	parse(request){
-		return check(request.url) ? parse(request.url, this) : super.parse(request.url);
+		return this._check(request.url) ? this._parse(request.url) : super.parse(request.url);
 	}
-}
 
-/**
- * parser [reference](https://tools.ietf.org/html/rfc3986#page-51)
- *
- * spaces `\x09`, `\x0A`, `\x0C`, `\x0D`, `\x20`, `\xA0`, `\uFEFF`
- * escape `\x09`, `\x0A`, `\x0D`, `\x20`, `\x22`, `\x27`, `\x3C`, `\x3E`, `\x5C`, `\x5E`, `\x60`, `\x7B`, `\x7C`, `\x7D`
- */
-const parseRegexp = /^((\/[^?#]*)?(\?([^#]*))?)(#.*)?/;
-const charsRegexp = /[\x09\x0A\x0C\x0D\x20\x22\x27\x3C\x3E\x5C\x5E\x60\x7B\x7C\x7D\xA0\uFEFF]/;
+	/**
+	 * @param {string} url
+	 * @returns {boolean}
+	 */
+	_check(url){
+		return url.charCodeAt(0) == 0x2f && !charsRegexp.test(url);
+	}
 
-/**
- * @param {string} path
- * @returns {boolean}
- */
-function check(path){
-	return path.charCodeAt(0) == 0x2f && !charsRegexp.test(path);
-}
-
-/**
- * @param {string} path
- * @param {Url} url
- * @returns {Url}
- */
-function parse(path, url){
-	var match = parseRegexp.exec(path);
-	url.href = match[0];
-	url.path = match[1];
-	url.pathname = match[2];
-	url.search = match[3] || url.search;
-	url.query = match[4] || url.query;
-	url.hash = match[5] || url.hash;
-	return url;
+	/**
+	 * @param {string} url
+	 * @returns {Url}
+	 */
+	_parse(url){
+		var match = parseRegexp.exec(url);
+		this.href = match[0];
+		this.path = match[1];
+		this.pathname = match[2];
+		this.search = match[3] || this.search;
+		this.query = match[4] || this.query;
+		this.hash = match[5] || this.hash;
+		return this;
+	}
 }
 
 /**
