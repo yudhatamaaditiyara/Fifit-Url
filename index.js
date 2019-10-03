@@ -52,7 +52,7 @@ const charsRegexp = /[\x09\x0A\x0C\x0D\x20\x22\x27\x3C\x3E\x5C\x5E\x60\x7B\x7C\x
  * @returns {boolean}
  */
 function check(path){
-	return typeof path == 'string' && path[0] == '/' && !charsRegexp.test(path);
+	return path.charCodeAt(0) == 0x2f && !charsRegexp.test(path);
 }
 
 /**
