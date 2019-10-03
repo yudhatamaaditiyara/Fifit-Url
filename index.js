@@ -39,6 +39,8 @@ class Url extends url.Url
 }
 
 /**
+ * parser [reference](https://tools.ietf.org/html/rfc3986#page-51)
+ *
  * spaces `\x09`, `\x0A`, `\x0C`, `\x0D`, `\x20`, `\xA0`, `\uFEFF`
  * escape `\x09`, `\x0A`, `\x0D`, `\x20`, `\x22`, `\x27`, `\x3C`, `\x3E`, `\x5C`, `\x5E`, `\x60`, `\x7B`, `\x7C`, `\x7D`
  */
