@@ -32,19 +32,18 @@ const charsRegexp = /[\x09\x0A\x0C\x0D\x20\x22\x27\x3C\x3E\x5C\x5E\x60\x7B\x7C\x
 class Url extends url.Url
 {
 	/**
-	 * @param {Request} request
+	 * @param {string} url
 	 */
-	constructor(request){
+	constructor(url){
 		super();
 		this.parse(request);
 	}
 
 	/**
-	 * @param {Request} request
+	 * @param {string} url
 	 * @returns {Url}
 	 */
-	parse(request){
-		let url = request.url;
+	parse(url){
 		if (url.charCodeAt(0) === 0x2f && !charsRegexp.test(url)) {
 			return this._parsePath(url);
 		}
@@ -60,7 +59,7 @@ class Url extends url.Url
 		}
 		return this._origin;
 	}
-
+	
 	/**
 	 * @returns {string}
 	 */
@@ -129,5 +128,6 @@ class Url extends url.Url
 }
 
 /**
+ * @+
  */
 module.exports = Url;
