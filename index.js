@@ -16,6 +16,7 @@
 'use strict';
 
 const url = require('url');
+const querystring = require('querystring');
 
 /**
  * parser [reference](https://tools.ietf.org/html/rfc3986#page-51)
@@ -43,26 +44,80 @@ class Url extends url.Url
 	 * @returns {Url}
 	 */
 	parse(request){
-		if (this._check(request.url)) {
-			return this._parse(request.url);
+		let url = request.url;
+		if (url.charCodeAt(0) === 0x2f && !charsRegexp.test(url)) {
+			return this._parsePath(url);
 		}
-		return super.parse(request.url);
+		return super.parse(url);
 	}
 
 	/**
-	 * @param {string} url
-	 * @returns {boolean}
+	 * @returns {string}
 	 */
-	_check(url){
-		return url.charCodeAt(0) == 0x2f && !charsRegexp.test(url);
+	get origin(){
+		if (this._origin == null) {
+			this._origin = this.protocol ? `${this.protocol}//${this.host}` : '';
+		}
+		return this._origin;
 	}
 
 	/**
-	 * @param {string} url
+	 * @returns {string}
+	 */
+	get username(){
+		if (this._username == null) {
+			this._parseAuth(this.auth);
+		}
+		return this._username;
+	}
+	
+	/**
+	 * @returns {string}
+	 */
+	get password(){
+		if (this._password == null) {
+			this._parseAuth(this.auth);
+		}
+		return this._password;
+	}
+
+	/**
+	 * @returns {URLSearchParams}
+	 */
+	get searchParams(){
+		if (this._searchParams == null) {
+			this._searchParams = new url.URLSearchParams(this.queryParams);
+		}
+		return this._searchParams;
+	}
+
+	/**
+	 * @returns {Object}
+	 */
+	get queryParams(){
+		if (this._queryParams == null) {
+			this._queryParams = typeof this.query == 'string' ? querystring.parse(this.query) : Object.create(this.query);
+		}
+		return this._queryParams;
+	}
+
+	/**
+	 * @param {string} auth
 	 * @returns {Url}
 	 */
-	_parse(url){
-		var match = url.match(parseRegexp);
+	_parseAuth(auth){
+		let array = auth ? auth.split(':', 2) : [];
+		this._username = array[0] || '';
+		this._password = array[1] || '';
+		return this;
+	}
+
+	/**
+	 * @param {string} path
+	 * @returns {Url}
+	 */
+	_parsePath(path){
+		let match = path.match(parseRegexp);
 		this.href = match[0];
 		this.path = match[1];
 		this.pathname = match[2];
