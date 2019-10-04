@@ -36,7 +36,7 @@ class Url extends url.Url
 	 */
 	constructor(url){
 		super();
-		this.parse(request);
+		this.parse(url);
 	}
 
 	/**
