@@ -23,7 +23,7 @@ const url = require('url');
  * spaces `\x09`, `\x0A`, `\x0C`, `\x0D`, `\x20`, `\xA0`, `\uFEFF`
  * escape `\x09`, `\x0A`, `\x0D`, `\x20`, `\x22`, `\x27`, `\x3C`, `\x3E`, `\x5C`, `\x5E`, `\x60`, `\x7B`, `\x7C`, `\x7D`
  */
-const parseRegexp = /^((\/[^?#]*)?(\?([^#]*))?)(#.*)?$/;
+const parseRegexp = /^((\/[^?#]*)?(\?([^#]*))?)(#.*)?/;
 const charsRegexp = /[\x09\x0A\x0C\x0D\x20\x22\x27\x3C\x3E\x5C\x5E\x60\x7B\x7C\x7D\xA0\uFEFF]/;
 
 /**
