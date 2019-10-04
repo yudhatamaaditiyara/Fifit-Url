@@ -43,7 +43,10 @@ class Url extends url.Url
 	 * @returns {Url}
 	 */
 	parse(request){
-		return this._check(request.url) ? this._parse(request.url) : super.parse(request.url);
+		if (this._check(request.url)) {
+			return this._parse(request.url);
+		}
+		return super.parse(request.url);
 	}
 
 	/**
@@ -59,7 +62,7 @@ class Url extends url.Url
 	 * @returns {Url}
 	 */
 	_parse(url){
-		var match = parseRegexp.exec(url);
+		var match = url.match(parseRegexp);
 		this.href = match[0];
 		this.path = match[1];
 		this.pathname = match[2];
