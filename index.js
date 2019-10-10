@@ -53,6 +53,16 @@ class Url extends url.Url
 	/**
 	 * @returns {string}
 	 */
+	get scheme(){
+		if (this._scheme == null) {
+			this._scheme = this.protocol ? this.protocol.replace(/\:$/, '') : '';
+		}
+		return this._scheme;
+	}
+
+	/**
+	 * @returns {string}
+	 */
 	get origin(){
 		if (this._origin == null) {
 			this._origin = this.protocol ? `${this.protocol}//${this.host}` : '';
