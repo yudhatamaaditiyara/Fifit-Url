@@ -111,13 +111,18 @@ class Url extends url.Url
 	}
 
 	/**
-	 * @param {string} auth
+	 * @param {string|void} auth
 	 * @returns {Url}
 	 */
 	_parseAuth(auth){
-		let array = auth ? auth.split(':', 2) : [];
-		this._username = array[0] || '';
-		this._password = array[1] || '';
+		if (auth) {
+			let array = auth.split(':', 2);
+			this._username = array[0] || '';
+			this._password = array[1] || '';
+		} else {
+			this._username = '';
+			this._password = '';
+		}
 		return this;
 	}
 
