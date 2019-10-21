@@ -33,14 +33,6 @@ class Url extends url.Url
 {
 	/**
 	 * @param {string} url
-	 */
-	constructor(url){
-		super();
-		this.parse(url);
-	}
-
-	/**
-	 * @param {string} url
 	 * @returns {Url}
 	 */
 	parse(url){
