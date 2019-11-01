@@ -20,7 +20,6 @@ const querystring = require('querystring');
 
 /**
  * parser [reference](https://tools.ietf.org/html/rfc3986#page-51)
- *
  * spaces `\x09`, `\x0A`, `\x0C`, `\x0D`, `\x20`, `\xA0`, `\uFEFF`
  * escape `\x09`, `\x0A`, `\x0D`, `\x20`, `\x22`, `\x27`, `\x3C`, `\x3E`, `\x5C`, `\x5E`, `\x60`, `\x7B`, `\x7C`, `\x7D`
  */
@@ -33,7 +32,7 @@ class Url extends url.Url
 {
 	/**
 	 * @param {string} url
-	 * @returns {Url}
+	 * @return {Url}
 	 */
 	parse(url){
 		if (url.charCodeAt(0) === 0x2f && !charsRegexp.test(url)) {
@@ -43,7 +42,7 @@ class Url extends url.Url
 	}
 
 	/**
-	 * @returns {string}
+	 * @return {string}
 	 */
 	get scheme(){
 		if (this._scheme == null) {
@@ -53,7 +52,7 @@ class Url extends url.Url
 	}
 
 	/**
-	 * @returns {string}
+	 * @return {string}
 	 */
 	get origin(){
 		if (this._origin == null) {
@@ -63,7 +62,7 @@ class Url extends url.Url
 	}
 	
 	/**
-	 * @returns {string}
+	 * @return {string}
 	 */
 	get username(){
 		if (this._username == null) {
@@ -73,7 +72,7 @@ class Url extends url.Url
 	}
 	
 	/**
-	 * @returns {string}
+	 * @return {string}
 	 */
 	get password(){
 		if (this._password == null) {
@@ -83,7 +82,7 @@ class Url extends url.Url
 	}
 
 	/**
-	 * @returns {URLSearchParams}
+	 * @return {URLSearchParams}
 	 */
 	get searchParams(){
 		if (this._searchParams == null) {
@@ -93,7 +92,7 @@ class Url extends url.Url
 	}
 
 	/**
-	 * @returns {Object}
+	 * @return {Object}
 	 */
 	get queryParams(){
 		if (this._queryParams == null) {
@@ -103,8 +102,8 @@ class Url extends url.Url
 	}
 
 	/**
-	 * @param {string|void} auth
-	 * @returns {Url}
+	 * @param {string=} auth
+	 * @return {Url}
 	 */
 	_parseAuth(auth){
 		if (auth) {
@@ -120,7 +119,7 @@ class Url extends url.Url
 
 	/**
 	 * @param {string} path
-	 * @returns {Url}
+	 * @return {Url}
 	 */
 	_parsePath(path){
 		let match = path.match(parseRegexp);
