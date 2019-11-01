@@ -35,7 +35,7 @@ class Url extends url.Url
 	 * @return {Url}
 	 */
 	parse(url){
-		if (url.charCodeAt(0) === 0x2f && !charsRegexp.test(url)) {
+		if (typeof url == 'string' && url.charCodeAt(0) === 0x2f && !charsRegexp.test(url)) {
 			return this._parsePath(url);
 		}
 		return super.parse(url);
