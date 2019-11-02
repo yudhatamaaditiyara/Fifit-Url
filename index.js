@@ -102,13 +102,23 @@ class Url extends url.Url
 	}
 
 	/**
+	 * @return {string}
+	 */
+	get fragment(){
+		if (this._fragment == null) {
+			this._fragment = this.hash ? this.hash.replace(/^#/, '') : '';
+		}
+		return this._fragment;
+	}
+	
+	/**
 	 * @param {string=} auth
 	 * @return {Url}
 	 */
 	_parseAuth(auth){
 		if (auth) {
 			let array = auth.split(':', 2);
-			this._username = array[0] || '';
+			this._username = array[0];
 			this._password = array[1] || '';
 		} else {
 			this._username = '';
