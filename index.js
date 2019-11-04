@@ -32,7 +32,7 @@ class Url extends url.Url
 {
 	/**
 	 * @param {string} url
-	 * @return {Url}
+	 * @returns {Url}
 	 */
 	parse(url){
 		if (typeof url == 'string' && url.charCodeAt(0) === 0x2f && !charsRegexp.test(url)) {
@@ -42,7 +42,7 @@ class Url extends url.Url
 	}
 
 	/**
-	 * @return {string}
+	 * @returns {string}
 	 */
 	get scheme(){
 		if (this._scheme == null) {
@@ -52,7 +52,7 @@ class Url extends url.Url
 	}
 
 	/**
-	 * @return {string}
+	 * @returns {string}
 	 */
 	get origin(){
 		if (this._origin == null) {
@@ -62,7 +62,7 @@ class Url extends url.Url
 	}
 	
 	/**
-	 * @return {string}
+	 * @returns {string}
 	 */
 	get username(){
 		if (this._username == null) {
@@ -72,7 +72,7 @@ class Url extends url.Url
 	}
 	
 	/**
-	 * @return {string}
+	 * @returns {string}
 	 */
 	get password(){
 		if (this._password == null) {
@@ -82,7 +82,7 @@ class Url extends url.Url
 	}
 
 	/**
-	 * @return {URLSearchParams}
+	 * @returns {URLSearchParams}
 	 */
 	get searchParams(){
 		if (this._searchParams == null) {
@@ -92,7 +92,7 @@ class Url extends url.Url
 	}
 
 	/**
-	 * @return {Object}
+	 * @returns {Object}
 	 */
 	get queryParams(){
 		if (this._queryParams == null) {
@@ -102,7 +102,7 @@ class Url extends url.Url
 	}
 
 	/**
-	 * @return {string}
+	 * @returns {string}
 	 */
 	get fragment(){
 		if (this._fragment == null) {
@@ -112,8 +112,8 @@ class Url extends url.Url
 	}
 	
 	/**
-	 * @param {string=} auth
-	 * @return {Url}
+	 * @param {string|null} auth
+	 * @returns {Url}
 	 */
 	_parseAuth(auth){
 		if (auth) {
@@ -129,7 +129,7 @@ class Url extends url.Url
 
 	/**
 	 * @param {string} path
-	 * @return {Url}
+	 * @returns {Url}
 	 */
 	_parsePath(path){
 		let match = path.match(parseRegexp);
