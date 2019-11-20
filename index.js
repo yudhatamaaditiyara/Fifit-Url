@@ -42,40 +42,40 @@ class Url extends url.Url
   }
 
   /**
-   * @returns {string}
+   * @returns {(string|null)}
    */
   get scheme(){
-    if (this._scheme == null) {
-      this._scheme = this.protocol ? this.protocol.replace(/\:$/, '') : '';
+    if (this._scheme === void 0) {
+      this._scheme = this.protocol ? this.protocol.replace(/\:$/, '') : null;
     }
     return this._scheme;
   }
 
   /**
-   * @returns {string}
+   * @returns {(string|null)}
    */
   get origin(){
-    if (this._origin == null) {
-      this._origin = this.protocol ? `${this.protocol}//${this.host}` : '';
+    if (this._origin === void 0) {
+      this._origin = this.protocol ? `${this.protocol}//${this.host}` : null;
     }
     return this._origin;
   }
-  
+
   /**
-   * @returns {string}
+   * @returns {(string|null)}
    */
   get username(){
-    if (this._username == null) {
+    if (this._username === void 0) {
       this._parseAuth(this.auth);
     }
     return this._username;
   }
-  
+
   /**
-   * @returns {string}
+   * @returns {(string|null)}
    */
   get password(){
-    if (this._password == null) {
+    if (this._password === void 0) {
       this._parseAuth(this.auth);
     }
     return this._password;
@@ -85,7 +85,7 @@ class Url extends url.Url
    * @returns {URLSearchParams}
    */
   get searchParams(){
-    if (this._searchParams == null) {
+    if (this._searchParams === void 0) {
       this._searchParams = new url.URLSearchParams(this.queryParams);
     }
     return this._searchParams;
@@ -95,22 +95,22 @@ class Url extends url.Url
    * @returns {Object}
    */
   get queryParams(){
-    if (this._queryParams == null) {
+    if (this._queryParams === void 0) {
       this._queryParams = typeof this.query == 'string' ? querystring.parse(this.query) : Object.create(this.query);
     }
     return this._queryParams;
   }
 
   /**
-   * @returns {string}
+   * @returns {(string|null)}
    */
   get fragment(){
-    if (this._fragment == null) {
-      this._fragment = this.hash ? this.hash.replace(/^#/, '') : '';
+    if (this._fragment === void 0) {
+      this._fragment = this.hash ? this.hash.replace(/^#/, '') : null;
     }
     return this._fragment;
   }
-  
+
   /**
    * @param {string|null} auth
    * @returns {Url}
@@ -119,10 +119,10 @@ class Url extends url.Url
     if (auth) {
       let array = auth.split(':', 2);
       this._username = array[0];
-      this._password = array[1] || '';
+      this._password = array[1] || null;
     } else {
-      this._username = '';
-      this._password = '';
+      this._username = null;
+      this._password = null;
     }
     return this;
   }
