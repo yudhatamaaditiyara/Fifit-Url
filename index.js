@@ -35,7 +35,7 @@ class Url extends url.Url
    * @returns {Url}
    */
   parse(url){
-    if (typeof url == 'string' && url.charCodeAt(0) === 0x2f && !charsRegexp.test(url)) {
+    if (typeof url === 'string' && url.charCodeAt(0) === 0x2f && !charsRegexp.test(url)) {
       return this._parsePath(url);
     }
     return super.parse(url);
@@ -96,7 +96,7 @@ class Url extends url.Url
    */
   get queryParams(){
     if (this._queryParams === void 0) {
-      this._queryParams = typeof this.query == 'string' ? querystring.parse(this.query) : Object.create(this.query);
+      this._queryParams = typeof this.query === 'string' ? querystring.parse(this.query) : Object.create(this.query);
     }
     return this._queryParams;
   }
